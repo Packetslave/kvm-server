@@ -1,4 +1,4 @@
-module github.com/packetslave/kvm
+module github.com/packetslave/kvm-server
 
 go 1.16
 
