@@ -39,20 +39,23 @@ func main() {
 		s, err := serial.Open(options)
 		if err != nil {
 			log.Println("No device connected at", serialPort)
-			os.Exit(0)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 		defer s.Close()
 
 		_, err = s.Write([]byte("Open\n"))
 		if err != nil {
 			log.Println("Unable to write to connected device")
-			os.Exit(0)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		_, err = s.Write([]byte(fmt.Sprintf(commandString, portNumber)))
 		if err != nil {
 			log.Println("Unable to write to connected device")
-			os.Exit(0)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 	})
 
