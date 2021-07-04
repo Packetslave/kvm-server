@@ -33,7 +33,8 @@ func main() {
 		portNumber := vars["port"]
 
 		if _, err := strconv.ParseInt(portNumber, 10, 8); err != nil {
-			log.Fatalf("invalid port: %q", portNumber)
+			http.Error(w, "Bad port number", http.StatusBadRequest)
+			return
 		}
 
 		s, err := serial.Open(options)
